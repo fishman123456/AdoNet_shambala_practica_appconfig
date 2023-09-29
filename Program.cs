@@ -4,22 +4,35 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System;
+using System.Configuration;
 namespace ConsoleApp1
 {
 
     internal class Program
     {
+      
         // 1. вспомогательная процедура, создающая и открывающая подключение к БД
         static SqlConnection OpenDbConnection()
         {
-            // обработка исключений будет выполняться выше по стеку
-            string connectionString = @"Data Source=fishman\SQLEXPRESS;
-                                    Initial Catalog=Practica_3_db;
-                                    Integrated Security=SSPI;";
+            //string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=usersdb;Integrated Security=True";
+            // получаем строку подключения
+            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            Console.WriteLine(connectionString);
             SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
             return connection;
+
+
+            // обработка исключений будет выполняться выше по стеку
+            /*string connectionString = @"Data Source=fishman\SQLEXPRESS;
+                                    Initial Catalog=Practica_3_db;
+                                    Integrated Security=SSPI;";
+            Console.WriteLine(connectionString);
+            SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+            return connection;
+            */
         }
         // 2. вспомогательная процедура, читающая и выводящая табличный результат запроса (SqlDatareader)
         static void ReadQueryResult(SqlDataReader queryResult)
@@ -40,8 +53,9 @@ namespace ConsoleApp1
 
                   Console.Write($"{queryResult[i]}"+"\t");
                 }
-               // Console.WriteLine(queryResult[queryResult.FieldCount - 1]);
+              
             }
+            Console.WriteLine();
         }
 
         // 3. процедура получения всех записей таблицы
@@ -102,6 +116,8 @@ namespace ConsoleApp1
             SqlConnection connection = null;
             try
             {
+                // имена client [id_f],[name_f],[age_f]
+                // имена jrder  [id_f],[description_f],[client_id]
                 // 1. открыть соединение
                 connection = OpenDbConnection();
                 // 2. подготовить запрос [name_f] ,[released_in_f]   ,[prise_f]

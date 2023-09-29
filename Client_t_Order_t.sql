@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [Practica_3_db]    Script Date: 29.09.2023 10:12:31 ******/
+/****** Object:  Database [Practica_3_db]    Script Date: 29.09.2023 15:28:59 ******/
 CREATE DATABASE [Practica_3_db]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -82,29 +82,29 @@ ALTER DATABASE [Practica_3_db] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLE
 GO
 USE [Practica_3_db]
 GO
-/****** Object:  Table [dbo].[Client_t]    Script Date: 29.09.2023 10:12:31 ******/
+/****** Object:  Table [dbo].[Client_t]    Script Date: 29.09.2023 15:28:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Client_t](
 	[id_f] [int] IDENTITY(1,1) NOT NULL,
-	[name_f] [nchar](255) NOT NULL,
-	[age_f] [nchar](255) NULL,
+	[name_f] [nvarchar](50) NOT NULL,
+	[age_f] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_Client_t] PRIMARY KEY CLUSTERED 
 (
 	[id_f] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Order_t]    Script Date: 29.09.2023 10:12:31 ******/
+/****** Object:  Table [dbo].[Order_t]    Script Date: 29.09.2023 15:28:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Order_t](
 	[id_f] [int] IDENTITY(1,1) NOT NULL,
-	[description_f] [nchar](255) NOT NULL,
+	[description_f] [nvarchar](25) NOT NULL,
 	[client_id] [int] NOT NULL,
  CONSTRAINT [PK_Order_t] PRIMARY KEY CLUSTERED 
 (
