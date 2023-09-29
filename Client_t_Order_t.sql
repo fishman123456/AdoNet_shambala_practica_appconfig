@@ -2,19 +2,7 @@ USE [master]
 GO
 /****** Object:  Database [Practica_3_db]    Script Date: 29.09.2023 15:28:59 ******/
 CREATE DATABASE [Practica_3_db]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'Practica_3_db', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\Practica_3_db.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'Practica_3_db_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\Practica_3_db_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
- WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
-GO
-ALTER DATABASE [Practica_3_db] SET COMPATIBILITY_LEVEL = 160
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [Practica_3_db].[dbo].[sp_fulltext_database] @action = 'enable'
-end
+
 GO
 ALTER DATABASE [Practica_3_db] SET ANSI_NULL_DEFAULT OFF 
 GO

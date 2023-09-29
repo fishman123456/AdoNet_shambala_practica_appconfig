@@ -53,3 +53,14 @@ C:\Users\Fishman.DB.CORP\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin
 C:\Users\Fishman.DB.CORP\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\Fishman.DB.CORP\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Fishman.DB.CORP\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\AdoNet_shambala_practica_appconfig.dll.config
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\Fishman_1\Documents\GitHub\AdoNet_shambala_practica_appconfig\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
