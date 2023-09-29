@@ -25,19 +25,22 @@ namespace ConsoleApp1
         static void ReadQueryResult(SqlDataReader queryResult)
         {
             // 1. вывести названия столбцов результирующей таблицы (представления)
-            for (int i = 0; i < queryResult.FieldCount - 1; i++)
+            for (int i = 0; i < queryResult.FieldCount ; i++)
             {
-                Console.Write($"{queryResult.GetName(i)} -");
+                Console.Write($"{queryResult.GetName(i)}"+"\t");
             }
-            Console.WriteLine(queryResult.GetName(queryResult.FieldCount - 1));
+            //Console.Write(queryResult.GetName(queryResult.FieldCount - 1));
             // 2. вывести значения построчно
+            Console.WriteLine();
             while (queryResult.Read())
             {
-                for (int i = 0; i < queryResult.FieldCount - 1; i++)
+                Console.WriteLine();
+                for (int i = 0; i < queryResult.FieldCount; i++)
                 {
-                    Console.Write($"{queryResult[i]} -");
+
+                  Console.Write($"{queryResult[i]}"+"\t");
                 }
-                Console.WriteLine(queryResult[queryResult.FieldCount - 1]);
+               // Console.WriteLine(queryResult[queryResult.FieldCount - 1]);
             }
         }
 
@@ -209,7 +212,7 @@ namespace ConsoleApp1
             //DeleteRow(6);
             //UpdateRow(8,"imperio",2000,25);
             SelectAllRows();
-
+           
         }
     }
 }
