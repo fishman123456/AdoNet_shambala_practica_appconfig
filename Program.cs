@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using System;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics.Metrics;
 
 namespace ConsoleApp1
 {
 
     internal class Program
     {
-      
+
         // 1. вспомогательная процедура, создающая и открывающая подключение к БД
         static SqlConnection OpenDbConnection()
         {
@@ -41,9 +42,9 @@ namespace ConsoleApp1
         static void ReadQueryResult(SqlDataReader queryResult)
         {
             // 1. вывести названия столбцов результирующей таблицы (представления)
-            for (int i = 0; i < queryResult.FieldCount ; i++)
+            for (int i = 0; i < queryResult.FieldCount; i++)
             {
-                Console.Write($"{queryResult.GetName(i)}"+"\t");
+                Console.Write($"{queryResult.GetName(i)}" + "\t");
             }
             //Console.Write(queryResult.GetName(queryResult.FieldCount - 1));
             // 2. вывести значения построчно
@@ -54,9 +55,9 @@ namespace ConsoleApp1
                 for (int i = 0; i < queryResult.FieldCount; i++)
                 {
 
-                  Console.Write($"{queryResult[i]}"+"\t");
+                    Console.Write($"{queryResult[i]}" + "\t");
                 }
-              
+
             }
             Console.WriteLine();
         }
@@ -101,7 +102,7 @@ namespace ConsoleApp1
                 SqlCommand query = new SqlCommand($"SELECT * FROM " +
                     $"Client_t, Order_t where Client_t.id_f = Order_t.client_id_f " +
                     $"order by Client_t.id_f", connection);
-                
+
                 // 3. выполнить запрос с табличным результом
                 queryResult = query.ExecuteReader();
                 // 4. считать запрос (универсальный способ)
@@ -186,7 +187,7 @@ namespace ConsoleApp1
             }
         }
         // 5. процедура добавления новой записи в таблицу Order_t
-        static void InsertRow_order(string description_f, int client_id)
+        static void InsertRow_order(string description_f, int client_id_f)
         {
             SqlConnection connection = null;
             try
@@ -197,10 +198,10 @@ namespace ConsoleApp1
                 connection = OpenDbConnection();
                 // 2. подготовить запрос [name_f] ,[released_in_f]   ,[prise_f]
                 string cmdString =
-                    $"INSERT INTO Order_t (description_f, client_id) VALUES (@description_f, @client_id);";
+                    $"INSERT INTO Order_t (description_f, client_id_f) VALUES (@description_f, @client_id_f);";
                 SqlCommand cmd = new SqlCommand(cmdString, connection);
                 cmd.Parameters.AddWithValue("@description_f", DbType.String).Value = description_f;
-                cmd.Parameters.AddWithValue("@client_id", DbType.Int16).Value = client_id;
+                cmd.Parameters.AddWithValue("@client_id_f", DbType.Int16).Value = client_id_f;
                 // 3. выполнить запрос
                 int rowsAffected = cmd.ExecuteNonQuery();   // выполнение запроса, изменяющего строки таблицы
                                                             // 4. проверить результат выполнения
@@ -224,8 +225,13 @@ namespace ConsoleApp1
         }
 
         // 6. процедура удаления записи из таблицы
-        static void DeleteRow(int id)
+        static void DeleteRowClient(int id)
         {
+            //ALTER TABLE Order_t
+            //ADD CONSTRAINT fk_client_id_f
+            //FOREIGN KEY(client_id_f)
+            //REFERENCES Client_t(id_f)
+            //ON DELETE CASCADE;
             SqlConnection connection = null;
             try
             {
@@ -233,9 +239,48 @@ namespace ConsoleApp1
                 connection = OpenDbConnection();
                 // 2. подготовить запрос
                 string cmdString =
-                    $"DELETE from Client_t where @id_f ={id};";
+                    $"DELETE from Client_t where id_f ={id};";
                 SqlCommand cmd = new SqlCommand(cmdString, connection);
-                cmd.Parameters.AddWithValue("@id_f", DbType.Int16).Value = id;
+               
+                // 3. выполнить запрос
+                int rowsAffected = cmd.ExecuteNonQuery();   // выполнение запроса, изменяющего строки таблицы
+                                                            // 4. проверить результат выполнения
+                if (rowsAffected != 1)
+                {
+                    Console.WriteLine($"DELETE failed, rowsAffected != 1 ({rowsAffected})");
+                }
+                else
+                {
+                    Console.WriteLine("Successfully deleted");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Something wrong: {ex.Message}");
+            }
+            finally
+            {
+                connection?.Close();    // закрыть соединение (если != null)
+            }
+        }
+        // 6. процедура удаления записи из таблицы
+        static void DeleteRowOrder(int id)
+        {
+            //ALTER TABLE Order_t
+            //ADD CONSTRAINT fk_client_id_f
+            //FOREIGN KEY(client_id_f)
+            //REFERENCES Client_t(id_f)
+            //ON DELETE CASCADE;
+            SqlConnection connection = null;
+            try
+            {
+                // 1. открыть соединение
+                connection = OpenDbConnection();
+                // 2. подготовить запрос
+                string cmdString =
+                    $"DELETE from Order_t where id_f ={id};";
+                SqlCommand cmd = new SqlCommand(cmdString, connection);
+
                 // 3. выполнить запрос
                 int rowsAffected = cmd.ExecuteNonQuery();   // выполнение запроса, изменяющего строки таблицы
                                                             // 4. проверить результат выполнения
@@ -299,13 +344,15 @@ namespace ConsoleApp1
                 Console.WriteLine("Connections close");
             }
         }
-      
+
         static void Main(string[] arg)
         {
-            //InsertRow_order("борщь",4 );
-            //InsertRow("nikolay", "15");
+            //InsertRow_order("солянка",4);
+            //InsertRow_client("михаил600", "600");
             //SelectRowById(1);
-            DeleteRow(6);
+            DeleteRowOrder(9);
+            DeleteRowOrder(10);
+            //DeleteRow(5);
             SelectAllRowsClient();
             SelectAllRowsClientOrder();
 
