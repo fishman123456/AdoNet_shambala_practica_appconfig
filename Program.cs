@@ -8,6 +8,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics.Metrics;
+using System.Xml.Linq;
 
 namespace ConsoleApp1
 {
@@ -303,7 +304,7 @@ namespace ConsoleApp1
             }
         }
         // 7. процедура изменения записи в таблице
-        static void UpdateRow(int id, string newName, int newReleasedIn, decimal newPrice)
+        static void UpdateRowClient(int id, string newName, int newAge)
         {
             SqlConnection connection = null;
             try
@@ -311,17 +312,15 @@ namespace ConsoleApp1
                 // 1. открыть соединение
                 connection = OpenDbConnection();
                 // 2. подготовить запрос
-                // [id]
-                // [name_f]
-                // [released_in_f]
-                // [price_f]
-                // FROM[computer_game_db].[dbo].[Client_t]
+                // поля Client_t    1)id_f    2)name_f          3)age_f
+                // поля Order_t     1)id_f    2)description_f   3)client_id
                 string cmdString =
-                    $"update Client_t set name_f ='{newName}'," +
-                    $"released_in_f ={newReleasedIn}," +
-                    $"price_f ={newPrice} " +
-                    $"where id ={id};";
+                    $"update Client_t set name_f = @name_f," +
+                    $"age_f = @age_f " +
+                    $"where id_f ={id};";
                 SqlCommand cmd = new SqlCommand(cmdString, connection);
+                cmd.Parameters.AddWithValue("@name_f", DbType.String).Value = newName;
+                cmd.Parameters.AddWithValue("@age_f", DbType.String).Value = newAge;
                 // 3. выполнить запрос
                 int rowsAffected = cmd.ExecuteNonQuery();   // выполнение запроса, изменяющего строки таблицы
                                                             // 4. проверить результат выполнения
@@ -345,15 +344,58 @@ namespace ConsoleApp1
             }
         }
 
+        static void UpdateRowOrder(int id_f, string description_f)
+        {
+            SqlConnection connection = null;
+            try
+            {
+                // 1. открыть соединение
+                connection = OpenDbConnection();
+                // 2. подготовить запрос
+                // поля Client_t    1)id_f    2)name_f          3)age_f
+                // поля Order_t     1)id_f    2)description_f   3)client_id
+                string cmdString =
+                    $"update Order_t set description_f = @description_f " +
+                   // $"client_id = @client_id " +
+                    $"where id_f ={id_f};";
+                SqlCommand cmd = new SqlCommand(cmdString, connection);
+                cmd.Parameters.AddWithValue("@description_f", DbType.String).Value = description_f;
+                //cmd.Parameters.AddWithValue("@client_id", DbType.String).Value = client_id;
+                // 3. выполнить запрос
+                int rowsAffected = cmd.ExecuteNonQuery();   // выполнение запроса, изменяющего строки таблицы
+                                                            // 4. проверить результат выполнения
+                if (rowsAffected != 1)
+                {
+                    Console.WriteLine($"Update failed, rowsAffected != 1 ({rowsAffected})");
+                }
+                else
+                {
+                    Console.WriteLine("Successfully update");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Something wrong: {ex.Message}");
+            }
+            finally
+            {
+                connection?.Close();    // закрыть соединение (если != null)
+                Console.WriteLine("Connections close");
+            }
+        }
         static void Main(string[] arg)
         {
             //InsertRow_order("солянка",4);
             //InsertRow_client("михаил600", "600");
             //SelectRowById(1);
-            DeleteRowOrder(9);
-            DeleteRowOrder(10);
+            //DeleteRowOrder(9);
+            //DeleteRowOrder(10);
             //DeleteRow(5);
+           
             SelectAllRowsClient();
+            //UpdateRowClient(2, "Сергей", 528);
+            SelectAllRowsClientOrder();
+             UpdateRowOrder(2, "картошка жареная");
             SelectAllRowsClientOrder();
 
         }
