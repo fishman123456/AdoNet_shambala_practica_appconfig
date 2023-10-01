@@ -121,7 +121,7 @@ namespace ConsoleApp1
         }
 
         // 4. процедура получения записи по id
-        static void SelectRowById(int id)
+        static void SelectRowByIdOrder(int id)
         {
             SqlConnection connection = null;
             SqlDataReader queryResult = null;
@@ -133,6 +133,36 @@ namespace ConsoleApp1
                 // поля Client_t    1)id_f    2)name_f          3)age_f
                 // поля Order_t     1)id_f    2)description_f   3)client_id
                 SqlCommand query = new SqlCommand($"SELECT * FROM Order_t WHERE id_f = @id", connection);
+                // query.Parameters.Add("@p", SqlDbType.BigInt).Value = id;
+                query.Parameters.AddWithValue("@id", id);
+                // 3. выполнить запрос с табличным результом
+                queryResult = query.ExecuteReader();
+                // 4. считать запрос (универсальный способ)
+                ReadQueryResult(queryResult);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Something wrong: {ex.Message}");
+            }
+            finally
+            {
+                connection?.Close();    // закрыть соединение (если != null)
+                queryResult?.Close();
+            }
+        }
+
+        static void SelectRowByIdClientOrder(int id)
+        {
+            SqlConnection connection = null;
+            SqlDataReader queryResult = null;
+            try
+            {
+                // 1. открыть соединение
+                connection = OpenDbConnection();
+                // 2. подготовить запрос
+                // поля Client_t    1)id_f    2)name_f          3)age_f
+                // поля Order_t     1)id_f    2)description_f   3)client_id
+                SqlCommand query = new SqlCommand($"SELECT * FROM Client_t t, Order_t o WHERE t.id_f = @id and o.client_id_f = @id", connection);
                 // query.Parameters.Add("@p", SqlDbType.BigInt).Value = id;
                 query.Parameters.AddWithValue("@id", id);
                 // 3. выполнить запрос с табличным результом
@@ -242,7 +272,7 @@ namespace ConsoleApp1
                 string cmdString =
                     $"DELETE from Client_t where id_f ={id};";
                 SqlCommand cmd = new SqlCommand(cmdString, connection);
-               
+
                 // 3. выполнить запрос
                 int rowsAffected = cmd.ExecuteNonQuery();   // выполнение запроса, изменяющего строки таблицы
                                                             // 4. проверить результат выполнения
@@ -356,7 +386,7 @@ namespace ConsoleApp1
                 // поля Order_t     1)id_f    2)description_f   3)client_id
                 string cmdString =
                     $"update Order_t set description_f = @description_f " +
-                   // $"client_id = @client_id " +
+                    // $"client_id = @client_id " +
                     $"where id_f ={id_f};";
                 SqlCommand cmd = new SqlCommand(cmdString, connection);
                 cmd.Parameters.AddWithValue("@description_f", DbType.String).Value = description_f;
@@ -386,17 +416,20 @@ namespace ConsoleApp1
         static void Main(string[] arg)
         {
             //InsertRow_order("солянка",4);
-            //InsertRow_client("михаил600", "600");
-            //SelectRowById(1);
+            //InsertRow_client("марина", "25");
+            //InsertRow_client("марина", "25");
+            //InsertRow_client("марина", "25");
+            //InsertRow_client("марина", "25");
+            //SelectRowByIdOrder(1);
             //DeleteRowOrder(9);
             //DeleteRowOrder(10);
             //DeleteRow(5);
-           
-            SelectAllRowsClient();
+            SelectRowByIdClientOrder(4);
+            //SelectAllRowsClient();
             //UpdateRowClient(2, "Сергей", 528);
-            SelectAllRowsClientOrder();
-             UpdateRowOrder(2, "картошка жареная");
-            SelectAllRowsClientOrder();
+            //SelectAllRowsClientOrder();
+            //UpdateRowOrder(2, "картошка жареная");
+            //SelectAllRowsClientOrder();
 
         }
     }
