@@ -416,16 +416,32 @@ namespace ConsoleApp1
         static void Main(string[] arg)
         {
             //InsertRow_order("солянка",4);
-            InsertRow_client("марина", 25);
-            InsertRow_client("сергей", 355);
-            InsertRow_client("илья", 50);
-            
+            //InsertRow_client("марина", 25);
+            //InsertRow_client("сергей", 355);
+            //InsertRow_client("илья", 50);
+            //InsertRow_order("солянка", 1);
+            // InsertRow_order("борщ", 2);
+            //InsertRow_order("картошка жареная", 3);
+            //InsertRow_order("салат министерский", 4);
+            //InsertRow_order("солянка", 1);
+            //InsertRow_order("солянка", 1);
+            //InsertRow_order("солянка", 1);
+            //InsertRow_order("солянка", 1);
+            //InsertRow_order("солянка", 1);
+            //InsertRow_order("солянка", 1);
+            //InsertRow_order("солянка", 1);
+            //InsertRow_order("солянка", 1);
+            //InsertRow_order("солянка", 1);
             //SelectRowByIdOrder(1);
             //DeleteRowOrder(9);
             //DeleteRowOrder(10);
-            //DeleteRow(5);
+            //for (int i = 4; i < 19; i++)
+            //{
+            // DeleteRowOrder(i);
+            //}
             //SelectRowByIdClientOrder(4);
             SelectAllRowsClient();
+            SelectAllRowsClientOrder();
             //UpdateRowClient(2, "Сергей", 528);
             //SelectAllRowsClientOrder();
             //UpdateRowOrder(2, "картошка жареная");
