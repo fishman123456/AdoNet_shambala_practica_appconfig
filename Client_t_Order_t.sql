@@ -1,8 +1,14 @@
 USE [master]
 GO
-/****** Object:  Database [Practica_3_db]    Script Date: 29.09.2023 15:28:59 ******/
+/****** Object:  Database [Practica_3_db]    Script Date: 02.10.2023 11:14:44 ******/
 CREATE DATABASE [Practica_3_db]
-
+GO
+ALTER DATABASE [Practica_3_db] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Practica_3_db].[dbo].[sp_fulltext_database] @action = 'enable'
+end
 GO
 ALTER DATABASE [Practica_3_db] SET ANSI_NULL_DEFAULT OFF 
 GO
@@ -70,7 +76,7 @@ ALTER DATABASE [Practica_3_db] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLE
 GO
 USE [Practica_3_db]
 GO
-/****** Object:  Table [dbo].[Client_t]    Script Date: 29.09.2023 15:28:59 ******/
+/****** Object:  Table [dbo].[Client_t]    Script Date: 02.10.2023 11:14:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -78,14 +84,14 @@ GO
 CREATE TABLE [dbo].[Client_t](
 	[id_f] [int] IDENTITY(1,1) NOT NULL,
 	[name_f] [nvarchar](50) NOT NULL,
-	[age_f] [nvarchar](50) NOT NULL,
+	[age_f] [int] NOT NULL,
  CONSTRAINT [PK_Client_t] PRIMARY KEY CLUSTERED 
 (
 	[id_f] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Order_t]    Script Date: 29.09.2023 15:28:59 ******/
+/****** Object:  Table [dbo].[Order_t]    Script Date: 02.10.2023 11:14:44 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,14 +99,14 @@ GO
 CREATE TABLE [dbo].[Order_t](
 	[id_f] [int] IDENTITY(1,1) NOT NULL,
 	[description_f] [nvarchar](25) NOT NULL,
-	[client_id] [int] NOT NULL,
+	[client_id_f] [int] NOT NULL,
  CONSTRAINT [PK_Order_t] PRIMARY KEY CLUSTERED 
 (
 	[id_f] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[Order_t]  WITH CHECK ADD  CONSTRAINT [FK_Order_t_Client_t] FOREIGN KEY([client_id])
+ALTER TABLE [dbo].[Order_t]  WITH CHECK ADD  CONSTRAINT [FK_Order_t_Client_t] FOREIGN KEY([client_id_f])
 REFERENCES [dbo].[Client_t] ([id_f])
 GO
 ALTER TABLE [dbo].[Order_t] CHECK CONSTRAINT [FK_Order_t_Client_t]

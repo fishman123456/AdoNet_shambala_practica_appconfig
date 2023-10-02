@@ -181,7 +181,7 @@ namespace ConsoleApp1
             }
         }
         // 5. процедура добавления новой записи в таблицу client
-        static void InsertRow_client(string name, string age)
+        static void InsertRow_client(string name, int age)
         {
             SqlConnection connection = null;
             try
@@ -195,7 +195,7 @@ namespace ConsoleApp1
                     $"INSERT INTO Client_t (name_f, age_f) VALUES (@name_f, @age_f);";
                 SqlCommand cmd = new SqlCommand(cmdString, connection);
                 cmd.Parameters.AddWithValue("@name_f", DbType.String).Value = name;
-                cmd.Parameters.AddWithValue("@age_f", DbType.String).Value = age;
+                cmd.Parameters.AddWithValue("@age_f", DbType.Int16).Value = age;
                 // 3. выполнить запрос
                 int rowsAffected = cmd.ExecuteNonQuery();   // выполнение запроса, изменяющего строки таблицы
                                                             // 4. проверить результат выполнения
@@ -350,7 +350,7 @@ namespace ConsoleApp1
                     $"where id_f ={id};";
                 SqlCommand cmd = new SqlCommand(cmdString, connection);
                 cmd.Parameters.AddWithValue("@name_f", DbType.String).Value = newName;
-                cmd.Parameters.AddWithValue("@age_f", DbType.String).Value = newAge;
+                cmd.Parameters.AddWithValue("@age_f", DbType.Int16).Value = newAge;
                 // 3. выполнить запрос
                 int rowsAffected = cmd.ExecuteNonQuery();   // выполнение запроса, изменяющего строки таблицы
                                                             // 4. проверить результат выполнения
@@ -416,16 +416,16 @@ namespace ConsoleApp1
         static void Main(string[] arg)
         {
             //InsertRow_order("солянка",4);
-            //InsertRow_client("марина", "25");
-            //InsertRow_client("марина", "25");
-            //InsertRow_client("марина", "25");
-            //InsertRow_client("марина", "25");
+            InsertRow_client("марина", 25);
+            InsertRow_client("сергей", 355);
+            InsertRow_client("илья", 50);
+            
             //SelectRowByIdOrder(1);
             //DeleteRowOrder(9);
             //DeleteRowOrder(10);
             //DeleteRow(5);
-            SelectRowByIdClientOrder(4);
-            //SelectAllRowsClient();
+            //SelectRowByIdClientOrder(4);
+            SelectAllRowsClient();
             //UpdateRowClient(2, "Сергей", 528);
             //SelectAllRowsClientOrder();
             //UpdateRowOrder(2, "картошка жареная");
