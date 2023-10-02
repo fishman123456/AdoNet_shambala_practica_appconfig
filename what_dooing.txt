@@ -14,3 +14,26 @@
 Для тестирование в отдельной процедуре создать 5 клиентов и от 2 до 5 заказов каждому из них (на C#).
 
 Приветствуется использование sql-параметров, вынос строки подключения в конфиг, использование вспомогательных процедур.*/
+
+Alter PROC ProcAddClientOrder AS 
+BEGIN 
+INSERT INTO Client_t (name_f, age_f) VALUES ('юрмала', 25) 
+INSERT INTO Client_t (name_f, age_f) VALUES ('ирина', 65) 
+INSERT INTO Client_t (name_f, age_f) VALUES ('алина', 40) 
+INSERT INTO Client_t (name_f, age_f) VALUES ('марина', 75) 
+INSERT INTO Client_t (name_f, age_f) VALUES ('стас', 15) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('каша', 23) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('суп', 23) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('пирожек с капустой', 23) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('бифштекс', 24) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('суп грибной', 24) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('куриный рулет', 24) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('омлет с сыром', 25) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('бурито', 25) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('салат коктейль', 25) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('курица в лаваше', 26) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('уха из горбуши', 26) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('салат мимоза', 27) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('салат ZA президента', 27) 
+INSERT INTO Order_t (description_f, client_id_f) VALUES ('Карбонат Пари', 27) 
+END
